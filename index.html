@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <style>
+
+        @font-face
+        {
+            font-family: font1;
+            src: url(fonts/mensch-inline.ttf);
+        }@font-face
+        {
+            font-family: font2;
+            src: url(fonts/Chunkfive-webfont.ttf);
+        }@font-face
+        {
+            font-family: font3;
+            src: url(fonts/Corki-Tuscan.otf);
+        }@font-face
+        {
+            font-family: font4;
+            src: url(fonts/Duke.otf);
+        }@font-face
+        {
+            font-family: font5;
+            src: url(fonts/Homestead-Inline.ttf);
+        }
+
+
+        body {
+            text-align: center;
+
+        }
+
+        #text {
+            margin-top: 100px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px dashed darkgray;
+            min-height: 500px;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+
+        #author {
+            border-radius: 5px;
+            border: 1px dashed darkgray;
+            margin-top: 40px;
+            width: 30%;
+            float: right;
+            font-family: "lucida console";
+        }
+
+        #container {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        @media print {
+            #container {
+                width: 100%;
+            }
+            #text {
+                border: none;
+                margin-top: 0;
+            }
+            #author {
+                border: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="text" contenteditable="true">
+
+    </div>
+    <div id="author" contenteditable="true">
+
+    </div>
+</div>
+<script>
+    var fonts = ['font1', 'font2', 'font3', 'font4', 'font5'];
+    var fontText = 0;
+    var fontAuthor = 0;
+    document.getElementById('text').onmousewheel = function (evt) {
+        var delta = evt.detail ? evt.detail * (-120) : evt.wheelDelta;
+        delta = delta / 60;
+        var v = parseInt(document.getElementById('text').style.fontSize) ? parseInt(document.getElementById('text').style.fontSize) : 0;
+        document.getElementById('text').style.fontSize = (v + delta).toString() + 'px';
+    };
+    document.getElementById('author').onmousewheel = function (evt) {
+        var delta = evt.detail ? evt.detail * (-120) : evt.wheelDelta;
+        delta = delta / 60;
+        var v = parseInt(document.getElementById('author').style.fontSize) ? parseInt(document.getElementById('author').style.fontSize) : 0;
+        document.getElementById('author').style.fontSize = (v + delta).toString() + 'px';
+    };
+    document.getElementById('text').oncontextmenu = function (evt) {
+        evt.preventDefault();
+        fontText++;
+        fontText = fontText % fonts.length;
+        document.getElementById('text').style.fontFamily = fonts[fontText];
+    };
+    document.getElementById('author').oncontextmenu = function (evt) {
+        evt.preventDefault();
+        fontAuthor++;
+        fontAuthor = fontAuthor % fonts.length;
+        document.getElementById('author').style.fontFamily = fonts[fontAuthor];
+    };
+</script>
+</body>
+</html>
